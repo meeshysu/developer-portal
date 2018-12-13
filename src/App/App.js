@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import { Button } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 class App extends Component {
@@ -19,6 +21,16 @@ class App extends Component {
           >
             Learn React
           </a>
+          <button className='btn btn-danger'>HELP ME</button>
+          <Button
+            tag="a"
+            color="success"
+            size="large"
+            href="http://reactstrap.github.io"
+            target="_blank"
+          >
+            View Reactstrap Docs
+          </Button>
         </header>
       </div>
     );
