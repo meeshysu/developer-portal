@@ -1,0 +1,17 @@
+{
+  "resource1" : {
+    "name" : "CSS-Tricks",
+    "url" : "https://css-tricks.com/",
+    "uid" : "V1BTG5pXOeg5dXRN7ddWwRWOQ1j2"
+  },
+  "resource2" : {
+      "name" : "7 Sass Techniques To Help You Write Better Code",
+      "url" : "https://www.devbridge.com/articles/7-sass-techniques-to-help-you-write-better-code/",
+      "uid" : "V1BTG5pXOeg5dXRN7ddWwRWOQ1j2"
+  },
+  "resource3" : {
+    "name" : "You Don't Know JS",
+    "url" : "https://github.com/getify/You-Dont-Know-JS",
+    "uid" : "V1BTG5pXOeg5dXRN7ddWwRWOQ1j2"
+  }
+}

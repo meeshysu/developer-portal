@@ -1,0 +1,17 @@
+{
+  "blog1" : {
+    "name" : "The Sass Way",
+    "url" : "http://thesassway.com/beginner",
+    "uid" : "V1BTG5pXOeg5dXRN7ddWwRWOQ1j2"
+  },
+  "podcast2" : {
+    "name" : "David Walsh's Blog",
+    "url" : "https://davidwalsh.name/",
+    "uid" : "V1BTG5pXOeg5dXRN7ddWwRWOQ1j2"
+  },
+  "podcast3" : {
+    "name" : "Sitepoint",
+    "url" : "https://www.sitepoint.com/javascript/",
+    "uid" : "V1BTG5pXOeg5dXRN7ddWwRWOQ1j2"
+  }
+}

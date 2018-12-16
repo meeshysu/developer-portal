@@ -1,0 +1,14 @@
+{
+  "tutorials": {
+   "make" : "wine"
+  },
+  "blogs": {
+    "read" : "wine"
+  },
+  "resources": {
+    "grapes" : "wine"
+  },
+  "podcasts": {
+    "talk" : "wine"
+  }
+}

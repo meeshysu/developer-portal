@@ -1,0 +1,17 @@
+{
+  "podcast1" : {
+    "name" : "CodeNewbie Podcast",
+    "url" : "https://www.codenewbie.org/podcast/",
+    "uid" : "V1BTG5pXOeg5dXRN7ddWwRWOQ1j2"
+  },
+  "podcast2" : {
+    "name" : "Front End Happy Hour",
+    "url" : "https://frontendhappyhour.com/",
+    "uid" : "V1BTG5pXOeg5dXRN7ddWwRWOQ1j2"
+  },
+  "podcast3" : {
+    "name" : "Developer Tea",
+    "url" : "https://spec.fm/podcasts/developer-tea",
+    "uid" : "V1BTG5pXOeg5dXRN7ddWwRWOQ1j2"
+  }
+}
