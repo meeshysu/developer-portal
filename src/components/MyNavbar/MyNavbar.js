@@ -21,7 +21,7 @@ class MyNavbar extends React.Component {
     return (
       <div className="my-navbar">
         <Navbar color="dark" dark expand="md">
-          <NavbarBrand href="/">DeveloperPlusPlus!</NavbarBrand>
+          <NavbarBrand href="/">Developer++</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>

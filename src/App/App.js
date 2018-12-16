@@ -5,8 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Auth from '../components/Auth/Auth';
 import connection from '../Helpers/Data/connection';
 import MyNavbar from '../components/MyNavbar/MyNavbar';
-import './App.css';
 import authRequests from '../Helpers/Data/authRequests';
+import AddStudyMaterial from '../components/AddStudyMaterial/AddStudyMaterial';
+import MaterialList from '../components/MaterialListSection/MaterialListSection';
+import ProfileInfo from '../components/ProfileInfo/ProfileInfo';
+import './App.scss';
+
 
 class App extends Component {
   state = {
@@ -53,9 +57,13 @@ class App extends Component {
     return (
       <div className="App">
         <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
-        <h2>"It's a dangerous business Frodo... going out your door.
-          You step onto the road and if you don't keep your feet,
-          there's no knowing where you might be swept off to."</h2>
+        <div className="col">
+          <ProfileInfo />
+        </div>
+        <div className="row">
+          <AddStudyMaterial />
+          <MaterialList />
+        </div>
       </div>
     );
   }
