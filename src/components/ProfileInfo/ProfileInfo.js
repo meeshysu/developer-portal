@@ -4,7 +4,7 @@ import './ProfileInfo.scss';
 class ProfileInfo extends React.Component {
   render() {
     return (
-      <div className="ProfileInfo">
+      <div className="ProfileInfo col">
         <h4>Your Profile:</h4>
       </div>
     );

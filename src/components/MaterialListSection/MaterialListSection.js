@@ -4,7 +4,7 @@ import './MaterialListSection.scss';
 class MaterialList extends React.Component {
   render() {
     return (
-      <div className="MaterialList">
+      <div className="MaterialList col">
         <h4>Your Added Materials</h4>
       </div>
     );
