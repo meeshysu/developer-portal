@@ -9,12 +9,15 @@ import authRequests from '../Helpers/Data/authRequests';
 import AddStudyMaterial from '../components/AddStudyMaterial/AddStudyMaterial';
 import MaterialList from '../components/MaterialListSection/MaterialListSection';
 import ProfileInfo from '../components/ProfileInfo/ProfileInfo';
+import GitHubApiRequest from '../Helpers/Data/GitHubApiRequest';
 import './App.scss';
 
 
 class App extends Component {
   state = {
     authed: false,
+    github_username: '',
+    podcasts: [],
   }
 
   componentDidMount() {
@@ -24,6 +27,14 @@ class App extends Component {
         this.setState({
           authed: true,
         });
+        const gitHubUser = this.state.github_username;
+        GitHubApiRequest.getProfileFromGitHub(gitHubUser)
+          .then((result) => {
+            console.log(result);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         this.setState({
           authed: false,
@@ -36,14 +47,14 @@ class App extends Component {
     this.removeListener();
   }
 
-  isAuthenticated = () => {
-    this.setState({ authed: true });
+  isAuthenticated = (username) => {
+    this.setState({ authed: true, github_username: username });
   };
 
   render() {
     const logoutClickEvent = () => {
       authRequests.logoutUser();
-      this.setState({ authed: false });
+      this.setState({ authed: false, github_username: '' });
     };
 
     if (!this.state.authed) {
@@ -64,6 +75,8 @@ class App extends Component {
         </div>
         <div className="row">
           <AddStudyMaterial />
+        </div>
+        <div className="col">
           <MaterialList />
         </div>
       </div>

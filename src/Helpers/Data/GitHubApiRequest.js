@@ -2,7 +2,7 @@ import axios from 'axios';
 // import apiKeys from '../apiKeys';
 
 
-const getProfileFromGitHub = user => new Promise((resolve, reject) => {
+const getProfileFromGitHub = gitHubUser => new Promise((resolve, reject) => {
   axios.get('https://api.github.com/user/meeshysu')
     .then((res) => {
       console.log(res.data);
