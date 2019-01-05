@@ -10,6 +10,7 @@ import AddStudyMaterial from '../components/AddStudyMaterial/AddStudyMaterial';
 import MaterialList from '../components/MaterialListSection/MaterialListSection';
 import ProfileInfo from '../components/ProfileInfo/ProfileInfo';
 import GitHubApiRequest from '../Helpers/Data/GitHubApiRequest';
+import TutorialsRequest from '../Helpers/Data/Requests/TutorialsRequest';
 import './App.scss';
 
 
@@ -18,10 +19,16 @@ class App extends Component {
     authed: false,
     github_username: '',
     podcasts: [],
+    tutorials: [],
   }
 
   componentDidMount() {
     connection();
+    TutorialsRequest.getTutorialData()
+      .then((tutorials) => {
+        this.setState({ tutorials });
+      })
+      .catch(error => console.error(error));
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
@@ -77,7 +84,9 @@ class App extends Component {
           <AddStudyMaterial />
         </div>
         <div className="col">
-          <MaterialList />
+          <MaterialList
+          tutorials={this.state.tutorials}
+          />
         </div>
       </div>
     );

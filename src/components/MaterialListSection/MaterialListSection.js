@@ -89,11 +89,6 @@ class MaterialList extends React.Component {
             <Row>
               <Col sm="12">
                 <h4>Resources</h4>
-                <li className="resource-items">
-                  <span className="rs-name">{resources.name}</span>
-                  <span className="rs-url">{resources.url}</span>
-                  <span className="rs-uid">{resources.uid}</span>
-                </li>
               </Col>
             </Row>
           </TabPane>
@@ -102,9 +97,9 @@ class MaterialList extends React.Component {
               <Col sm="6">
               <h4>Tutorials</h4>
               <li className="tutorial-items">
-                  <span className="trl-name">{tutorials.name}</span>
+                  {/* <span className="trl-name">{tutorials.name}</span>
                   <span className="trl-url">{tutorials.url}</span>
-                  <span className="trl-uid">{tutorials.uid}</span>
+                  <span className="trl-uid">{tutorials.uid}</span> */}
                 </li>
               </Col>
             </Row>
@@ -114,9 +109,9 @@ class MaterialList extends React.Component {
               <Col sm="6">
               <h4>Blogs</h4>
               <li className="blog-items">
-                  <span className="blg-name">{blogs.name}</span>
+                  {/* <span className="blg-name">{blogs.name}</span>
                   <span className="blg-url">{blogs.url}</span>
-                  <span className="blg-uid">{blogs.uid}</span>
+                  <span className="blg-uid">{blogs.uid}</span> */}
                 </li>
               </Col>
             </Row>
@@ -126,9 +121,9 @@ class MaterialList extends React.Component {
               <Col sm="6">
               <h4>Podcasts</h4>
               <li className="podcast-items">
-                  <span className="pdc-name">{podcasts.name}</span>
+                  {/* <span className="pdc-name">{podcasts.name}</span>
                   <span className="pdc-name">{podcasts.url}</span>
-                  <span className="pdc-name">{podcasts.uid}</span>
+                  <span className="pdc-name">{podcasts.uid}</span> */}
                 </li>
               </Col>
             </Row>
