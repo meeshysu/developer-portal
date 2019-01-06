@@ -7,10 +7,9 @@ class Blogs extends React.Component {
     const { blog } = this.props;
 
     return (
-      <li className="tutorial-items">
-      <span className="rs-name">{blog.name}</span>
-      <span className="rs-url">{blog.url}</span>
-      <span className="rs-uid">{blog.uid}</span>
+      <li className="blog-items row">
+      <span className="rs-name col-4">{blog.name}</span>
+      <a href={blog.url} classname="col-4" rel="noopener noreferrer" target="_blank">{blog.url}</a>
       </li>
     );
   }

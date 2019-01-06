@@ -7,10 +7,9 @@ class Resources extends React.Component {
     const { resource } = this.props;
 
     return (
-      <li className="resource-items">
-      <span className="rs-name">{resource.name}</span>
-      <span className="rs-url">{resource.url}</span>
-      <span className="rs-uid">{resource.uid}</span>
+      <li className="resource-items row">
+      <span className="rs-name col-4">{resource.name}</span>
+      <a href={resource.url} classname="col-4" rel="noopener noreferrer" target="_blank">{resource.url}</a>
       </li>
     );
   }

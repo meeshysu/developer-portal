@@ -7,10 +7,9 @@ class Podcasts extends React.Component {
     const { podcast } = this.props;
 
     return (
-      <li className="tutorial-items">
-      <span className="rs-name">{podcast.name}</span>
-      <span className="rs-url">{podcast.url}</span>
-      <span className="rs-uid">{podcast.uid}</span>
+      <li className="podcast-items row">
+      <span className="rs-name col-4">{podcast.name}</span>
+      <a href={podcast.url} classname="col-4" rel="noopener noreferrer" target="_blank">{podcast.url}</a>
       </li>
     );
   }

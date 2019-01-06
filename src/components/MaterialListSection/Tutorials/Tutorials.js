@@ -7,10 +7,9 @@ class Tutorials extends React.Component {
     const { tutorial } = this.props;
 
     return (
-      <li className="tutorial-items">
-      <span className="rs-name">{tutorial.name}</span>
-      <span className="rs-url">{tutorial.url}</span>
-      <span className="rs-uid">{tutorial.uid}</span>
+      <li className="tutorial-items row">
+      <span className="rs-name col-4">{tutorial.name}</span>
+      <a href={tutorial.url} classname="col-4" rel="noopener noreferrer" target="_blank">{tutorial.url}</a>
       </li>
     );
   }
