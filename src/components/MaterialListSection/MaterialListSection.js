@@ -61,6 +61,7 @@ class MaterialList extends React.Component {
     const resourcesItemComponent = resources.map(resource => (
       <Resources
         resource={resource}
+        key={resource.id}
       />
     ));
 
