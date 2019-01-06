@@ -29,6 +29,7 @@ class App extends Component {
         this.setState({ tutorials });
       })
       .catch(error => console.error(error));
+
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
@@ -85,7 +86,7 @@ class App extends Component {
         </div>
         <div className="col">
           <MaterialList
-          tutorials={this.state.tutorials}
+          tutorials = {this.state.tutorials}
           />
         </div>
       </div>
