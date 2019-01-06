@@ -16,6 +16,9 @@ import tutorialsShape from '../../Helpers/propz/tutorialsShape';
 import blogsShape from '../../Helpers/propz/blogsShape';
 import resourcesShape from '../../Helpers/propz/resourcesShape';
 import Tutorials from './Tutorials/Tutorials';
+import Resources from './Resources/Resources';
+import Blogs from './Blogs/Blogs';
+import Podcasts from './Podcasts/Podcasts';
 
 class MaterialList extends React.Component {
   static propTypes = {
@@ -43,12 +46,42 @@ class MaterialList extends React.Component {
   }
 
   render() {
-    const { tutorials } = this.props;
+    const {
+      tutorials,
+    } = this.props;
     const tutorialsItemComponent = tutorials.map(tutorial => (
       <Tutorials
-      tutorial = {tutorial}
+        tutorial={tutorial}
       />
     ));
+
+    const {
+      resources,
+    } = this.props;
+    const resourcesItemComponent = resources.map(resource => (
+      <Resources
+        resource={resource}
+      />
+    ));
+
+    const {
+      blogs,
+    } = this.props;
+    const blogItemComponent = blogs.map(blog => (
+      <Blogs
+        blog={blog}
+      />
+    ));
+
+    const {
+      podcasts,
+    } = this.props;
+    const podcastItemComponent = podcasts.map(podcast => (
+      <Podcasts
+        podcast={podcast}
+      />
+    ));
+
     return (
       <div>
         <Nav tabs>
@@ -90,13 +123,14 @@ class MaterialList extends React.Component {
             <Row>
               <Col sm="12">
                 <h4>Resources</h4>
+                <ul>{resourcesItemComponent}</ul>
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="2">
             <Row>
               <Col sm="6">
-              <h4>Tutorials</h4>
+                <h4>Tutorials</h4>
                 <ul>{tutorialsItemComponent}</ul>
               </Col>
             </Row>
@@ -104,24 +138,16 @@ class MaterialList extends React.Component {
           <TabPane tabId="3">
             <Row>
               <Col sm="6">
-              <h4>Blogs</h4>
-              <li className="blog-items">
-                  {/* <span className="blg-name">{blogs.name}</span>
-                  <span className="blg-url">{blogs.url}</span>
-                  <span className="blg-uid">{blogs.uid}</span> */}
-                </li>
+                <h4>Blogs</h4>
+                <ul>{blogItemComponent}</ul>
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="4">
             <Row>
               <Col sm="6">
-              <h4>Podcasts</h4>
-              <li className="podcast-items">
-                  {/* <span className="pdc-name">{podcasts.name}</span>
-                  <span className="pdc-name">{podcasts.url}</span>
-                  <span className="pdc-name">{podcasts.uid}</span> */}
-                </li>
+                <h4>Podcasts</h4>
+                <ul>{podcastItemComponent}</ul>
               </Col>
             </Row>
           </TabPane>
