@@ -15,6 +15,7 @@ import podcastsShape from '../../Helpers/propz/podcastsShape';
 import tutorialsShape from '../../Helpers/propz/tutorialsShape';
 import blogsShape from '../../Helpers/propz/blogsShape';
 import resourcesShape from '../../Helpers/propz/resourcesShape';
+import Tutorials from './Tutorials/Tutorials';
 
 class MaterialList extends React.Component {
   static propTypes = {
@@ -42,12 +43,12 @@ class MaterialList extends React.Component {
   }
 
   render() {
-    const {
-      podcasts,
-      tutorials,
-      resources,
-      blogs,
-    } = this.props;
+    const { tutorials } = this.props;
+    const tutorialsItemComponent = tutorials.map(tutorial => (
+      <Tutorials
+      tutorial = {tutorial}
+      />
+    ));
     return (
       <div>
         <Nav tabs>
@@ -96,11 +97,7 @@ class MaterialList extends React.Component {
             <Row>
               <Col sm="6">
               <h4>Tutorials</h4>
-              <li className="tutorial-items">
-                  {/* <span className="trl-name">{tutorials.name}</span>
-                  <span className="trl-url">{tutorials.url}</span>
-                  <span className="trl-uid">{tutorials.uid}</span> */}
-                </li>
+                <ul>{tutorialsItemComponent}</ul>
               </Col>
             </Row>
           </TabPane>
