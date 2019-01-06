@@ -11,6 +11,9 @@ import MaterialList from '../components/MaterialListSection/MaterialListSection'
 import ProfileInfo from '../components/ProfileInfo/ProfileInfo';
 import GitHubApiRequest from '../Helpers/Data/GitHubApiRequest';
 import TutorialsRequest from '../Helpers/Data/Requests/TutorialsRequest';
+import ResourcesRequest from '../Helpers/Data/Requests/ResourcesRequest';
+import BlogsRequest from '../Helpers/Data/Requests/BlogsRequest';
+import PodcastRequest from '../Helpers/Data/Requests/PodcastsRequest';
 import './App.scss';
 
 
@@ -18,8 +21,10 @@ class App extends Component {
   state = {
     authed: false,
     github_username: '',
-    podcasts: [],
+    resources: [],
     tutorials: [],
+    blogs: [],
+    podcasts: [],
   }
 
   componentDidMount() {
@@ -27,6 +32,21 @@ class App extends Component {
     TutorialsRequest.getTutorialData()
       .then((tutorials) => {
         this.setState({ tutorials });
+      })
+      .catch(error => console.error(error));
+    ResourcesRequest.getResourceData()
+      .then((resources) => {
+        this.setState({ resources });
+      })
+      .catch(error => console.error(error));
+    BlogsRequest.getBlogData()
+      .then((blogs) => {
+        this.setState({ blogs });
+      })
+      .catch(error => console.error(error));
+    PodcastRequest.getPodcastData()
+      .then((podcasts) => {
+        this.setState({ podcasts });
       })
       .catch(error => console.error(error));
 
@@ -87,6 +107,9 @@ class App extends Component {
         <div className="col">
           <MaterialList
           tutorials = {this.state.tutorials}
+          resources = {this.state.resources}
+          blogs = {this.state.blogs}
+          podcasts = {this.state.podcasts}
           />
         </div>
       </div>
