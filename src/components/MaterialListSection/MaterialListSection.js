@@ -27,6 +27,9 @@ class MaterialList extends React.Component {
     resources: PropTypes.arrayOf(resourcesShape),
     blogs: PropTypes.arrayOf(blogsShape),
     deleteAResource: PropTypes.func,
+    deleteATutorial: PropTypes.func,
+    deleteABlog: PropTypes.func,
+    deleteAPodcast: PropTypes.func,
   }
 
   constructor(props) {
@@ -49,10 +52,13 @@ class MaterialList extends React.Component {
   render() {
     const {
       tutorials,
+      deleteATutorial,
     } = this.props;
     const tutorialsItemComponent = tutorials.map(tutorial => (
       <Tutorials
         tutorial={tutorial}
+        key={tutorial.id}
+        deleteATutorial = {deleteATutorial}
       />
     ));
 
@@ -70,19 +76,25 @@ class MaterialList extends React.Component {
 
     const {
       blogs,
+      deleteABlog,
     } = this.props;
     const blogItemComponent = blogs.map(blog => (
       <Blogs
         blog={blog}
+        key={blog.id}
+        deleteABlog = {deleteABlog}
       />
     ));
 
     const {
       podcasts,
+      deleteAPodcast,
     } = this.props;
     const podcastItemComponent = podcasts.map(podcast => (
       <Podcasts
         podcast={podcast}
+        key={podcast.id}
+        deleteAPodcast={deleteAPodcast}
       />
     ));
 
