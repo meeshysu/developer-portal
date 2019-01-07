@@ -1,8 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import authRequests from '../../../Helpers/Data/authRequests';
 import './Resources.scss';
 
 class Resources extends React.Component {
+  static propTypes = {
+    deleteAResource: PropTypes.func,
+  }
+
+  deleteEvent = (e) => {
+    e.preventDefault();
+    const { deleteAResource, resource } = this.props;
+    deleteAResource(resource.id);
+  }
+
   render() {
     const { resource } = this.props;
     const uid = authRequests.getCurrentUid();
@@ -11,7 +22,7 @@ class Resources extends React.Component {
         return (
           <div>
             <span className = "col">
-            <button className = "btn btn">
+            <button className = "btn btn" onClick={this.deleteEvent}>
             <i className="fas fa-minus-circle"></i>
             </button>
             </span>

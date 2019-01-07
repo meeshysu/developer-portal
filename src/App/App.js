@@ -79,6 +79,17 @@ class App extends Component {
     this.setState({ authed: true, github_username: username });
   };
 
+  deleteResource = (resourceId) => {
+    ResourcesRequest.deleteResource(resourceId)
+      .then(() => {
+        ResourcesRequest.getResourceData()
+          .then((resources) => {
+            this.setState({ resources });
+          });
+      })
+      .catch(error => console.error(error));
+  }
+
   render() {
     const logoutClickEvent = () => {
       authRequests.logoutUser();
@@ -90,7 +101,7 @@ class App extends Component {
         <div className="App">
           <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
           <div className="row">
-          <Auth isAuthenticated={this.isAuthenticated} />
+            <Auth isAuthenticated={this.isAuthenticated} />
           </div>
         </div>
       );
@@ -106,10 +117,11 @@ class App extends Component {
         </div>
         <div className="col">
           <MaterialList
-          tutorials = {this.state.tutorials}
-          resources = {this.state.resources}
-          blogs = {this.state.blogs}
-          podcasts = {this.state.podcasts}
+            tutorials={this.state.tutorials}
+            resources={this.state.resources}
+            blogs={this.state.blogs}
+            podcasts={this.state.podcasts}
+            deleteAResource = {this.deleteResource}
           />
         </div>
       </div>
