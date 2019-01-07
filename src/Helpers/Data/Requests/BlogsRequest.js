@@ -19,6 +19,9 @@ const getBlogData = () => new Promise((resolve, reject) => {
     .catch(error => reject(error));
 });
 
+const deleteBlog = blogId => axios.delete(`${firebaseUrl}/blogs/${blogId}.json`);
+
 export default {
   getBlogData,
+  deleteBlog
 };

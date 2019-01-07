@@ -90,6 +90,39 @@ class App extends Component {
       .catch(error => console.error(error));
   }
 
+  deleteTutorial = (tutorialId) => {
+    TutorialsRequest.deleteTutorial(tutorialId)
+      .then(() => {
+        TutorialsRequest.getTutorialData()
+          .then((tutorials) => {
+            this.setState({ tutorials });
+          });
+      })
+      .catch(error => console.error(error));
+  }
+
+  deleteBlog = (blogId) => {
+    BlogsRequest.deleteBlog(blogId)
+      .then(() => {
+        BlogsRequest.getBlogData()
+          .then((blogs) => {
+            this.setState({ blogs });
+          });
+      })
+      .catch(error => console.error(error));
+  }
+
+  deletePodcast = (podcastId) => {
+    PodcastRequest.deletePodcast(podcastId)
+      .then(() => {
+        PodcastRequest.deletePodcast()
+          .then((podcasts) => {
+            this.setState({ podcasts });
+          });
+      })
+      .catch(error => console.error(error));
+  }
+
   render() {
     const logoutClickEvent = () => {
       authRequests.logoutUser();
@@ -121,7 +154,10 @@ class App extends Component {
             resources={this.state.resources}
             blogs={this.state.blogs}
             podcasts={this.state.podcasts}
-            deleteAResource = {this.deleteResource}
+            deleteAResource={this.deleteResource}
+            deleteAPodcast={this.deletePodcast}
+            deleteATutorial={this.deleteTutorial}
+            deleteABlog={this.deleteBlog}
           />
         </div>
       </div>
