@@ -101,6 +101,19 @@ class App extends Component {
       .catch(error => console.error(error));
   }
 
+
+  updateTutorial = (tutorialId, isCompleted) => {
+    TutorialsRequest.updateTutorial(tutorialId, isCompleted)
+      .then(() => {
+        TutorialsRequest.getTurtorialData()
+          .then((tutorials) => {
+            tutorials.sort((x, y) => x.isCompleted - y.isCompleted);
+            this.setState({ tutorials });
+          });
+      })
+      .catch(err => console.error(err));
+  }
+
   deleteBlog = (blogId) => {
     BlogsRequest.deleteBlog(blogId)
       .then(() => {
