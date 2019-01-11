@@ -34,7 +34,7 @@ class Tutorials extends React.Component {
     return (
       <li className="tutorial-items row">
       <span className="rs-name col-4">{tutorial.name}</span>
-      <a href={tutorial.url} classname="col-4" rel="noopener noreferrer" target="_blank">{tutorial.url}</a>
+      <a href={tutorial.url} className="col-4" rel="noopener noreferrer" target="_blank">{tutorial.url}</a>
       {deleteButton()}
       </li>
     );

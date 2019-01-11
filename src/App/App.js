@@ -14,6 +14,7 @@ import TutorialsRequest from '../Helpers/Data/Requests/TutorialsRequest';
 import ResourcesRequest from '../Helpers/Data/Requests/ResourcesRequest';
 import BlogsRequest from '../Helpers/Data/Requests/BlogsRequest';
 import PodcastRequest from '../Helpers/Data/Requests/PodcastsRequest';
+import getProfileRequest from '../Helpers/Data/Requests/ProfileRequest';
 import './App.scss';
 
 
@@ -25,6 +26,7 @@ class App extends Component {
     tutorials: [],
     blogs: [],
     podcasts: [],
+    profile: [],
   }
 
   componentDidMount() {
@@ -49,12 +51,18 @@ class App extends Component {
         this.setState({ podcasts });
       })
       .catch(error => console.error(error));
+    getProfileRequest.getRequest()
+      .then(() => {
+
+      })
+      .catch(err => console.error(err));
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
           authed: true,
         });
+
         const gitHubUser = this.state.github_username;
         GitHubApiRequest.getProfileFromGitHub(gitHubUser)
           .then((result) => {
@@ -155,8 +163,10 @@ class App extends Component {
     return (
       <div className="App">
         <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
+        <div className="row">
         <div className="col">
-          <ProfileInfo />
+          <ProfileInfo profile={this.state.profile} />
+        </div>
         </div>
         <div className="row">
           <AddStudyMaterial />

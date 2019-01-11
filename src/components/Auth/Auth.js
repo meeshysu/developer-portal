@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import authRequests from '../../Helpers/Data/authRequests';
 import './Auth.scss';
 
+// let user = '';
 class Auth extends React.Component {
   static propTypes = {
     isAuthenticated: PropTypes.func,
@@ -11,8 +12,8 @@ class Auth extends React.Component {
   authenticateUser = (e) => {
     e.preventDefault();
     authRequests.authenticate().then((res) => {
-      const user = res.additionalUserInfo.username;
-      this.props.isAuthenticated(user);
+      // user = res.additionalUserInfo.username;
+      this.props.isAuthenticated();
     })
       .catch(error => console.error('there is an error with auth', error));
   }
@@ -26,4 +27,7 @@ class Auth extends React.Component {
   }
 }
 
+// const getUserName = () => user;
+
 export default Auth;
+// export { getUserName };

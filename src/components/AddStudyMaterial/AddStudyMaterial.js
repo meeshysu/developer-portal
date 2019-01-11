@@ -7,7 +7,7 @@ class AddStudyMaterial extends React.Component {
       <div className="Form col">
         <h2>Form</h2>
         <form className="">
-          <label className="sr-only" for="name">Name</label>
+          <label className="sr-only" htmlFor="name">Name</label>
           <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="name" placeholder="Learn HTML"/>
           <div className="form-check">
             <label className="form-check-label">
