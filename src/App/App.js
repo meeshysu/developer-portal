@@ -22,6 +22,7 @@ class App extends Component {
   state = {
     authed: false,
     githubUsername: '',
+    profile: [],
     resources: [],
     tutorials: [],
     blogs: [],
@@ -29,12 +30,10 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    // console.log(this.state.githubUsername);
     if (this.state.githubUsername && this.state.profile.length === 0) {
       getUserRequest.getRequest(this.state.githubUsername)
         .then((profile) => {
           this.setState({ profile });
-          // console.log(this.state.profile);
         })
         .catch(err => console.error(err));
     }
@@ -73,17 +72,11 @@ class App extends Component {
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        const users = sessionStorage.getItem('githubUsername');
         this.setState({
           authed: true,
+          githubUsername: users,
         });
-        const gitHubUser = this.state.github_username;
-        GitHubApiRequest.getProfileFromGitHub(gitHubUser)
-          .then((result) => {
-            console.log(result);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
       } else {
         this.setState({
           authed: false,
@@ -94,10 +87,12 @@ class App extends Component {
 
   componentWillUnmount() {
     this.removeListener();
+    authRequests.logoutUser();
   }
 
   isAuthenticated = (username) => {
-    this.setState({ authed: true, github_username: username });
+    this.setState({ authed: true, githubUsername: username });
+    sessionStorage.setItem('githubUserName', username);
   };
 
   deleteResource = (resourceId) => {
@@ -240,10 +235,10 @@ class App extends Component {
     };
     if (!this.state.authed) {
       return (
-          <div className="App">
-            <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
-            <Auth isAuthenticated={this.isAuthenticated}/>
-          </div>
+        <div className="App">
+          <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
+          <Auth isAuthenticated={this.isAuthenticated} />
+        </div>
       );
     }
 
@@ -252,12 +247,12 @@ class App extends Component {
         <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
         <div className="col">
           <ProfileInfo
-          profile={this.state.profile}
-          commits={this.state.commits} 
+            profile={this.state.profile}
+            commits={this.state.commits}
           />
         </div>
         <div className="row">
-          <AddStudyMaterial onSubmit={this.formSubmitEvent}/>
+          <AddStudyMaterial onSubmit={this.formSubmitEvent} />
         </div>
         <div className="col">
           <MaterialList
