@@ -21,7 +21,13 @@ const getTutorialData = () => new Promise((resolve, reject) => {
 
 const deleteTutorial = tutorialId => axios.delete(`${firebaseUrl}/tutorials/${tutorialId}.json`);
 
+const updateTutorial = (blogId, isCompleted) => axios.patch(`${firebaseUrl}/blogs/${blogId}.json`, { isCompleted });
+
+const postTutorial = blog => axios.post(`${firebaseUrl}/blogs.json`, blog);
+
 export default {
   getTutorialData,
   deleteTutorial,
+  postTutorial,
+  updateTutorial,
 };

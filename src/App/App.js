@@ -22,6 +22,7 @@ class App extends Component {
   state = {
     authed: false,
     githubUsername: '',
+    profile: [],
     resources: [],
     tutorials: [],
     blogs: [],
@@ -29,12 +30,10 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    // console.log(this.state.githubUsername);
     if (this.state.githubUsername && this.state.profile.length === 0) {
       getUserRequest.getRequest(this.state.githubUsername)
         .then((profile) => {
           this.setState({ profile });
-          // console.log(this.state.profile);
         })
         .catch(err => console.error(err));
     }
@@ -73,17 +72,11 @@ class App extends Component {
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        const users = sessionStorage.getItem('githubUsername');
         this.setState({
           authed: true,
+          githubUsername: users,
         });
-        const gitHubUser = this.state.github_username;
-        GitHubApiRequest.getProfileFromGitHub(gitHubUser)
-          .then((result) => {
-            console.log(result);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
       } else {
         this.setState({
           authed: false,
@@ -94,10 +87,12 @@ class App extends Component {
 
   componentWillUnmount() {
     this.removeListener();
+    authRequests.logoutUser();
   }
 
   isAuthenticated = (username) => {
-    this.setState({ authed: true, github_username: username });
+    this.setState({ authed: true, githubUsername: username });
+    sessionStorage.setItem('githubUserName', username);
   };
 
   deleteResource = (resourceId) => {
@@ -193,9 +188,9 @@ class App extends Component {
       .catch(err => console.error(err));
   }
 
-  submitNewMaterial = (newResource) => {
-    if (newResource.type === 'tutorial') {
-      TutorialsRequest.postRequest(newResource)
+  submitNewMaterial = (newMaterial) => {
+    if (newMaterial.type === 'tutorial') {
+      TutorialsRequest.postRequest(newMaterial)
         .then(() => {
           TutorialsRequest.getTurtorialData()
             .then((tutorials) => {
@@ -203,8 +198,8 @@ class App extends Component {
             });
         })
         .catch(err => console.error(err));
-    } else if (newResource.type === 'resources') {
-      ResourcesRequest.postResource(newResource)
+    } else if (newMaterial.type === 'resources') {
+      ResourcesRequest.postResource(newMaterial)
         .then(() => {
           ResourcesRequest.getResourceData()
             .then((resources) => {
@@ -212,8 +207,8 @@ class App extends Component {
             });
         })
         .catch(err => console.error(err));
-    } else if (newResource.type === 'blog') {
-      BlogsRequest.postBlog(newResource)
+    } else if (newMaterial.type === 'blog') {
+      BlogsRequest.postBlog(newMaterial)
         .then(() => {
           BlogsRequest.getBlogData()
             .then((blogs) => {
@@ -221,8 +216,8 @@ class App extends Component {
             });
         })
         .catch(err => console.error(err));
-    } else if (newResource.type === 'podcast') {
-      PodcastRequest.postPodcast(newResource)
+    } else if (newMaterial.type === 'podcast') {
+      PodcastRequest.postPodcast(newMaterial)
         .then(() => {
           PodcastRequest.getPodcastData()
             .then((podcasts) => {
@@ -240,10 +235,10 @@ class App extends Component {
     };
     if (!this.state.authed) {
       return (
-          <div className="App">
-            <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
-            <Auth isAuthenticated={this.isAuthenticated}/>
-          </div>
+        <div className="App">
+          <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
+          <Auth isAuthenticated={this.isAuthenticated} />
+        </div>
       );
     }
 
@@ -252,12 +247,12 @@ class App extends Component {
         <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
         <div className="col">
           <ProfileInfo
-          profile={this.state.profile}
-          commits={this.state.commits} 
+            profile={this.state.profile}
+            commits={this.state.commits}
           />
         </div>
         <div className="row">
-          <AddStudyMaterial onSubmit={this.formSubmitEvent}/>
+          <AddStudyMaterial onSubmit={this.formSubmitEvent} />
         </div>
         <div className="col">
           <MaterialList
