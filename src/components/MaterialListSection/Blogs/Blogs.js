@@ -2,10 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import authRequests from '../../../Helpers/Data/authRequests';
 import './Blogs.scss';
+import blogShape from '../../../Helpers/propz/blogsShape';
 
 class Blogs extends React.Component {
   static propTypes = {
+    blog: blogShape,
     deleteABlog: PropTypes.func,
+    updateABlog: PropTypes.func,
+  }
+
+  updateEvent = (e) => {
+    e.preventDefault();
+    const { updateABlog, blog } = this.props;
+    const isCompleted = e.target.checked;
+    updateABlog(blog.id, isCompleted);
   }
 
   deleteEvent = (e) => {
@@ -37,6 +47,10 @@ class Blogs extends React.Component {
       <span className="rs-name col-4">{blog.name}</span>
       <a href={blog.url} className="col-4" rel="noopener noreferrer" target="_blank">{blog.url}</a>
       {deleteButton()}
+      <div className="checkboxContainer">
+          <input type="checkbox" value="blog" checked= {blog.isCompleted} id ={blog.id} onChange={this.updateEvent}/>
+          <label className="label">Completed</label>
+      </div>
       </li>
     );
   }

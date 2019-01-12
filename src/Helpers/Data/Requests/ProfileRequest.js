@@ -5,9 +5,8 @@ import axios from 'axios';
 // const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
 
 const getProfile = () => new Promise((resolve, reject) => {
-  const user = getUserName();
   axios
-    .get(`https://github.com/${user}`)
+    .get('https://github.com/meeshysu')
     .then((result) => {
       console.log(result.data);
       resolve(result.data);

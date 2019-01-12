@@ -2,10 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import authRequests from '../../../Helpers/Data/authRequests';
 import './Resources.scss';
+import resourcesShape from '../../../Helpers/propz/resourcesShape';
 
 class Resources extends React.Component {
   static propTypes = {
+    resource: resourcesShape,
     deleteAResource: PropTypes.func,
+    updateAResource: PropTypes.func,
+  }
+
+  updateEvent = (e) => {
+    e.preventDefault();
+    const { updateAResource, blog } = this.props;
+    const isCompleted = e.target.checked;
+    updateAResource(blog.id, isCompleted);
   }
 
   deleteEvent = (e) => {
@@ -36,6 +46,10 @@ class Resources extends React.Component {
       <span className="rs-name col-4">{resource.name}</span>
       <a href={resource.url} className="col-4" rel="noopener noreferrer" target="_blank">{resource.url}</a>
       {deleteButton()}
+      <div className="checkboxContainer">
+          <input type="checkbox" value="blog" checked= {resource.isCompleted} id ={resource.id} onChange={this.updateEvent}/>
+          <label className="label">Completed</label>
+      </div>
       </li>
     );
   }

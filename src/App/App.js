@@ -14,20 +14,39 @@ import TutorialsRequest from '../Helpers/Data/Requests/TutorialsRequest';
 import ResourcesRequest from '../Helpers/Data/Requests/ResourcesRequest';
 import BlogsRequest from '../Helpers/Data/Requests/BlogsRequest';
 import PodcastRequest from '../Helpers/Data/Requests/PodcastsRequest';
-import getProfileRequest from '../Helpers/Data/Requests/ProfileRequest';
+import getUserRequest from '../Helpers/Data/Requests/ProfileRequest';
 import './App.scss';
 
 
 class App extends Component {
   state = {
     authed: false,
-    github_username: '',
+    githubUsername: '',
     resources: [],
     tutorials: [],
     blogs: [],
     podcasts: [],
-    profile: [],
   }
+
+  componentDidUpdate() {
+    // console.log(this.state.githubUsername);
+    if (this.state.githubUsername && this.state.profile.length === 0) {
+      getUserRequest.getRequest(this.state.githubUsername)
+        .then((profile) => {
+          this.setState({ profile });
+          // console.log(this.state.profile);
+        })
+        .catch(err => console.error(err));
+    }
+    if (this.state.githubUsername && this.state.profile.length === 0) {
+      getUserRequest.getUserCommit(this.state.githubUsername)
+        .then((commits) => {
+          this.setState({ commits });
+        })
+        .catch(err => console.error(err));
+    }
+  }
+
 
   componentDidMount() {
     connection();
@@ -51,18 +70,12 @@ class App extends Component {
         this.setState({ podcasts });
       })
       .catch(error => console.error(error));
-    getProfileRequest.getRequest()
-      .then(() => {
-
-      })
-      .catch(err => console.error(err));
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
           authed: true,
         });
-
         const gitHubUser = this.state.github_username;
         GitHubApiRequest.getProfileFromGitHub(gitHubUser)
           .then((result) => {
@@ -96,6 +109,18 @@ class App extends Component {
           });
       })
       .catch(error => console.error(error));
+  }
+
+  updateResource = (resourceId, isCompleted) => {
+    ResourcesRequest.updateResource(resourceId, isCompleted)
+      .then(() => {
+        ResourcesRequest.getResourceData()
+          .then((resources) => {
+            resources.sort((x, y) => x.isCompleted - y.isCompleted);
+            this.setState({ resources });
+          });
+      })
+      .catch(err => console.error(err));
   }
 
   deleteTutorial = (tutorialId) => {
@@ -133,6 +158,18 @@ class App extends Component {
       .catch(error => console.error(error));
   }
 
+  updateBlog = (blogId, isCompleted) => {
+    BlogsRequest.updateBlog(blogId, isCompleted)
+      .then(() => {
+        BlogsRequest.getBlogData()
+          .then((blogs) => {
+            blogs.sort((x, y) => x.isCompleted - y.isCompleted);
+            this.setState({ blogs });
+          });
+      })
+      .catch(err => console.error(err));
+  }
+
   deletePodcast = (podcastId) => {
     PodcastRequest.deletePodcast(podcastId)
       .then(() => {
@@ -144,32 +181,83 @@ class App extends Component {
       .catch(error => console.error(error));
   }
 
+  updatePodcast = (podcastId, isCompleted) => {
+    PodcastRequest.updatePodcast(podcastId, isCompleted)
+      .then(() => {
+        PodcastRequest.getPodcastData()
+          .then((podcasts) => {
+            podcasts.sort((x, y) => x.isCompleted - y.isCompleted);
+            this.setState({ podcasts });
+          });
+      })
+      .catch(err => console.error(err));
+  }
+
+  submitNewMaterial = (newResource) => {
+    if (newResource.type === 'tutorial') {
+      TutorialsRequest.postRequest(newResource)
+        .then(() => {
+          TutorialsRequest.getTurtorialData()
+            .then((tutorials) => {
+              this.setState({ tutorials });
+            });
+        })
+        .catch(err => console.error(err));
+    } else if (newResource.type === 'resources') {
+      ResourcesRequest.postResource(newResource)
+        .then(() => {
+          ResourcesRequest.getResourceData()
+            .then((resources) => {
+              this.setState({ resources });
+            });
+        })
+        .catch(err => console.error(err));
+    } else if (newResource.type === 'blog') {
+      BlogsRequest.postBlog(newResource)
+        .then(() => {
+          BlogsRequest.getBlogData()
+            .then((blogs) => {
+              this.setState({ blogs });
+            });
+        })
+        .catch(err => console.error(err));
+    } else if (newResource.type === 'podcast') {
+      PodcastRequest.postPodcast(newResource)
+        .then(() => {
+          PodcastRequest.getPodcastData()
+            .then((podcasts) => {
+              this.setState({ podcasts });
+            });
+        })
+        .catch(err => console.error(err));
+    }
+  }
+
   render() {
     const logoutClickEvent = () => {
       authRequests.logoutUser();
-      this.setState({ authed: false, github_username: '' });
+      this.setState({ authed: false, githubUsername: '' });
     };
-
     if (!this.state.authed) {
       return (
-        <div className="App">
-          <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
-          <div className="row">
-            <Auth isAuthenticated={this.isAuthenticated} />
+          <div className="App">
+            <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
+            <Auth isAuthenticated={this.isAuthenticated}/>
           </div>
-        </div>
       );
     }
+
     return (
       <div className="App">
         <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
-        <div className="row">
         <div className="col">
-          <ProfileInfo profile={this.state.profile} />
-        </div>
+          <ProfileInfo
+          profile={this.state.profile}
+          commits={this.state.commits} 
+          />
         </div>
         <div className="row">
-          <AddStudyMaterial />
+          <AddStudyMaterial onSubmit={this.formSubmitEvent}/>
         </div>
         <div className="col">
           <MaterialList
@@ -181,6 +269,10 @@ class App extends Component {
             deleteAPodcast={this.deletePodcast}
             deleteATutorial={this.deleteTutorial}
             deleteABlog={this.deleteBlog}
+            updateAResource={this.updateAResource}
+            updateAPodcast={this.updateAPodcast}
+            updateABlog={this.updateABlog}
+            updateATutorial={this.updateATutorial}
           />
         </div>
       </div>
