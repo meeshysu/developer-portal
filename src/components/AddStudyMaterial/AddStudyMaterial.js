@@ -8,10 +8,11 @@ class AddStudyMaterial extends React.Component {
         <h2>Form</h2>
         <form className="">
           <label className="sr-only" htmlFor="name">Name</label>
-          <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="name" placeholder="Learn HTML"/>
+          <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="title" placeholder="Add new title"/>
+          <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="link" placeholder="Add new link"/>
           <div className="form-check">
             <label className="form-check-label">
-            <input className="form-check-input" type="checkbox"/> Tutorial
+            <input className="form-check-input" type="checkbox"/> Tutorials
             </label>
           </div>
           <div className="form-check">
@@ -29,7 +30,7 @@ class AddStudyMaterial extends React.Component {
             <input className="form-check-input" type="checkbox"/> Blogs
             </label>
           </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <button type="submit" className="btn btn-info">Submit</button>
         </form>
       </div>
     );

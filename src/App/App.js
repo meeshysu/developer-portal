@@ -188,9 +188,9 @@ class App extends Component {
       .catch(err => console.error(err));
   }
 
-  submitNewMaterial = (newResource) => {
-    if (newResource.type === 'tutorial') {
-      TutorialsRequest.postRequest(newResource)
+  submitNewMaterial = (newMaterial) => {
+    if (newMaterial.type === 'tutorial') {
+      TutorialsRequest.postRequest(newMaterial)
         .then(() => {
           TutorialsRequest.getTurtorialData()
             .then((tutorials) => {
@@ -198,8 +198,8 @@ class App extends Component {
             });
         })
         .catch(err => console.error(err));
-    } else if (newResource.type === 'resources') {
-      ResourcesRequest.postResource(newResource)
+    } else if (newMaterial.type === 'resources') {
+      ResourcesRequest.postResource(newMaterial)
         .then(() => {
           ResourcesRequest.getResourceData()
             .then((resources) => {
@@ -207,8 +207,8 @@ class App extends Component {
             });
         })
         .catch(err => console.error(err));
-    } else if (newResource.type === 'blog') {
-      BlogsRequest.postBlog(newResource)
+    } else if (newMaterial.type === 'blog') {
+      BlogsRequest.postBlog(newMaterial)
         .then(() => {
           BlogsRequest.getBlogData()
             .then((blogs) => {
@@ -216,8 +216,8 @@ class App extends Component {
             });
         })
         .catch(err => console.error(err));
-    } else if (newResource.type === 'podcast') {
-      PodcastRequest.postPodcast(newResource)
+    } else if (newMaterial.type === 'podcast') {
+      PodcastRequest.postPodcast(newMaterial)
         .then(() => {
           PodcastRequest.getPodcastData()
             .then((podcasts) => {
