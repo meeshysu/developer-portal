@@ -21,7 +21,13 @@ const getResourceData = () => new Promise((resolve, reject) => {
 
 const deleteResource = resourceId => axios.delete(`${firebaseUrl}/resources/${resourceId}.json`);
 
+const updateResource = (blogId, isCompleted) => axios.patch(`${firebaseUrl}/blogs/${blogId}.json`, { isCompleted });
+
+const postResource = blog => axios.post(`${firebaseUrl}/blogs.json`, blog);
+
 export default {
   getResourceData,
   deleteResource,
+  updateResource,
+  postResource,
 };

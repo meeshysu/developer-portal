@@ -2,10 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import authRequests from '../../../Helpers/Data/authRequests';
 import './Tutorials.scss';
+import tutorialsShape from '../../../Helpers/propz/tutorialsShape';
 
 class Tutorials extends React.Component {
   static propTypes = {
+    tutorial: tutorialsShape,
     deleteATutorial: PropTypes.func,
+    updateATutorial: PropTypes.func,
   }
 
   deleteEvent = (e) => {
@@ -34,8 +37,12 @@ class Tutorials extends React.Component {
     return (
       <li className="tutorial-items row">
       <span className="rs-name col-4">{tutorial.name}</span>
-      <a href={tutorial.url} classname="col-4" rel="noopener noreferrer" target="_blank">{tutorial.url}</a>
+      <a href={tutorial.url} className="col-4" rel="noopener noreferrer" target="_blank">{tutorial.url}</a>
       {deleteButton()}
+      <div className="checkboxContainer">
+          <input type="checkbox" value="blog" checked= {tutorial.isCompleted} id ={tutorial.id} onChange={this.updateEvent}/>
+          <label className="label">Completed</label>
+      </div>
       </li>
     );
   }

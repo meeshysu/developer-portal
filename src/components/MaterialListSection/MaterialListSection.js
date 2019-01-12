@@ -30,6 +30,15 @@ class MaterialList extends React.Component {
     deleteATutorial: PropTypes.func,
     deleteABlog: PropTypes.func,
     deleteAPodcast: PropTypes.func,
+    updateAResource: PropTypes.func,
+    updateATutorial: PropTypes.func,
+    updateAPodcast: PropTypes.func,
+    updateABlog: PropTypes.func,
+    isCompleted: PropTypes.bool,
+    completedResource: PropTypes.bool,
+    completedTutorial: PropTypes.bool,
+    completedPodcast: PropTypes.bool,
+    completedBlog: PropTypes.bool,
   }
 
   constructor(props) {
@@ -53,48 +62,64 @@ class MaterialList extends React.Component {
     const {
       tutorials,
       deleteATutorial,
+      updateATutorial,
+      completedTutorial,
     } = this.props;
     const tutorialsItemComponent = tutorials.map(tutorial => (
       <Tutorials
         tutorial={tutorial}
         key={tutorial.id}
-        deleteATutorial = {deleteATutorial}
+        deleteATutorial={deleteATutorial}
+        updateATutorial={updateATutorial}
+        completedTutorial={completedTutorial}
       />
     ));
 
     const {
       resources,
       deleteAResource,
+      updateAResource,
+      completedResource,
     } = this.props;
     const resourcesItemComponent = resources.map(resource => (
       <Resources
         resource={resource}
         key={resource.id}
-        deleteAResource = {deleteAResource}
+        deleteAResource={deleteAResource}
+        updateAResource={updateAResource}
+        completedResource={completedResource}
       />
     ));
 
     const {
       blogs,
       deleteABlog,
+      updateABlog,
+      completedBlog,
     } = this.props;
     const blogItemComponent = blogs.map(blog => (
       <Blogs
         blog={blog}
         key={blog.id}
-        deleteABlog = {deleteABlog}
+        deleteABlog={deleteABlog}
+        updateABlog= {updateABlog}
+        completedBlog={completedBlog}
       />
     ));
 
     const {
       podcasts,
       deleteAPodcast,
+      updateAPodcast,
+      completedPodcast,
     } = this.props;
     const podcastItemComponent = podcasts.map(podcast => (
       <Podcasts
         podcast={podcast}
         key={podcast.id}
         deleteAPodcast={deleteAPodcast}
+        updateAPodcast={updateAPodcast}
+        completedPodcast={completedPodcast}
       />
     ));
 
